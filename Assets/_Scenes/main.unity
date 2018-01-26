@@ -206,7 +206,7 @@ GameObject:
   - component: {fileID: 170022808}
   - component: {fileID: 170022807}
   m_Layer: 0
-  m_Name: Portal3
+  m_Name: 2
   m_TagString: Portal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -357,7 +357,7 @@ GameObject:
   - component: {fileID: 224132719}
   - component: {fileID: 224132718}
   m_Layer: 0
-  m_Name: Portal1
+  m_Name: 1
   m_TagString: Portal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -418,7 +418,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 311855413}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &224132718
 MonoBehaviour:
@@ -481,8 +481,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 224132717}
   - {fileID: 1984395183}
+  - {fileID: 224132717}
   - {fileID: 170022810}
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -632,7 +632,7 @@ GameObject:
   - component: {fileID: 1984395181}
   - component: {fileID: 1984395180}
   m_Layer: 0
-  m_Name: Portal2
+  m_Name: 0
   m_TagString: Portal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -729,5 +729,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 311855413}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

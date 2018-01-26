@@ -20,4 +20,10 @@ public class Portal : MonoBehaviour {
 				player.Move(transform.position);
 		}
 	}
+
+	void OnTriggerEnter2D (Collider2D other) {
+		if (other.tag == "Player") {
+			print("trigger:" + Manager.getDoor(gameObject.name));
+		}
+	}
 }
