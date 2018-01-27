@@ -5,7 +5,7 @@ using UnityEngine;
 public class Portal : MonoBehaviour {
 
 	void OnMouseDown () {
-		Player player = RoomManager.manager.playerScript;
+		Player player = RoomManager.manager.player;
 		if (player != null) {
 			if (!player.IsMoving())
 				player.Move(transform.position);

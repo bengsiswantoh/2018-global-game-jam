@@ -20,8 +20,13 @@ public class MenuManager : MonoBehaviour {
 			Destroy(gameObject);
 	}
 
+	void Start () {
+		gameGroup.SetActive(false);
+		Game.manager.PlayMusic(menuMusic);
+	}
+
 	void Update () {
-		if (Input.GetButtonDown("Cancel") && !RoomManager.manager.IsWin())
+		if (Input.GetButtonDown("Cancel") && !RoomManager.manager.IsWin() && !QuizManager.manager.IsActive())
 			ShowPauseMenu(!Game.manager.paused);
 	}
 
@@ -39,12 +44,13 @@ public class MenuManager : MonoBehaviour {
 
 	public void PlayButton () {
 		ShowPauseMenu(!Game.manager.paused);
+		if (RoomManager.manager.IsWin())
+			ResetButton();
 	}
 
 	public void ResetButton () {
 		ShowWinMenu(false);
 		RoomManager.manager.InitGame();
-		RoomManager.manager.playerScript.Reset();
 	}
 
 	public void MusicButton () {
@@ -55,8 +61,13 @@ public class MenuManager : MonoBehaviour {
 	public void MenuButton () {
 		ShowWinMenu(false);
 		gameGroup.SetActive(false);
-		menuGroup.SetActive(false);
 		menuGroup.SetActive(true);
 		Game.manager.PlayMusic(menuMusic);
+	}
+
+	public void Play () {
+		RoomManager.manager.InitGame();
+		menuGroup.SetActive(false);
+		gameGroup.SetActive(true);
 	}
 }

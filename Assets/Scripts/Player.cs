@@ -11,8 +11,6 @@ public class Player : MonoBehaviour {
 
 	void Start () {
 		startingPos = goal = transform.position;
-		// UpdateCurrentRoom();
-		printInfo();
 	}
 
 	void Update () {
@@ -25,7 +23,7 @@ public class Player : MonoBehaviour {
 	void OnTriggerEnter2D (Collider2D other) {
 		if (other.tag == "Portal") {
 			int nextRoom = RoomManager.manager.GetDoor(other.name);
-			// nextRoom = RoomManager.manager.goalRoom;
+			nextRoom = RoomManager.manager.goalRoom;
 
 			if (nextRoom == RoomManager.manager.goalRoom) {
 				QuizManager.manager.ShowQuiz(nextRoom);
@@ -44,19 +42,10 @@ public class Player : MonoBehaviour {
 
 	public void Reset () {
 		transform.position = goal = startingPos;
-		RoomManager.manager.UpdateCurrentRoom();
 	}
 
 	public void Transmitte (int nextRoom) {
 		RoomManager.manager.ChangeRoom(nextRoom);
 		Reset();
-		printInfo();
-	}
-
-	public void printInfo() {
-		for (int i = 0; i < 3; i ++) {
-			int temp = RoomManager.manager.GetDoor(i.ToString());
-			print("door " + i + " : " + temp);
-		}
 	}
 }

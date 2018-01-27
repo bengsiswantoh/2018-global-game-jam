@@ -14,11 +14,11 @@ public class RoomManager : MonoBehaviour {
 	public static RoomManager manager;
 	[HideInInspector] public int currentRoom;
 	[HideInInspector] public int goalRoom;
-	[HideInInspector] public Player playerScript;
+	[HideInInspector] public Player player;
 	[HideInInspector] public int doorPassed;
 	[HideInInspector] public int nextRoom;
 
-	GameObject player;
+	GameObject playerObject;
 	int roomCount;
 	int portalCount;
 	List<int> doorList;
@@ -32,9 +32,9 @@ public class RoomManager : MonoBehaviour {
 			Destroy(gameObject);
 
 		// set player
-		player = GameObject.FindWithTag("Player");
-		if (player != null)
-			playerScript = player.GetComponent<Player>();
+		playerObject = GameObject.FindWithTag("Player");
+		if (playerObject != null)
+			player = playerObject.GetComponent<Player>();
 
 		// make doorlist to generate better random
 		roomCount = musics.Length;
@@ -59,8 +59,14 @@ public class RoomManager : MonoBehaviour {
 		UpdateTimer();
 	}
 
-	void UpdateDoorPassed () {
+	void UpdateInfo () {
 		doorPassedText.text = "Portal yang dilewati : " + doorPassed;
+		currentRoomText.text = "Current : " + currentRoom;
+
+		for (int i = 0; i < 3; i ++) {
+			int temp = GetDoor(i.ToString());
+			print("door " + i + " : " + temp);
+		}
 	}
 
 	void UpdateTimer () {
@@ -80,14 +86,10 @@ public class RoomManager : MonoBehaviour {
 
 	public void InitGame () {
 		timePassed = 0;
-		UpdateDoorPassed();
-		UpdateCurrentRoom();
-
-		Game.manager.StopGame(false);
-
-		// random starting room
-		// currentRoom = Random.Range(0, roomCount);
+		doorPassed = 0;
 		currentRoom = 0;
+
+		MenuManager.manager.ShowWinMenu(false);
 
 		// play bgm
 		Game.manager.PlayMusic(musics[currentRoom]);
@@ -97,18 +99,18 @@ public class RoomManager : MonoBehaviour {
 		while (goalRoom == currentRoom) {
 			goalRoom = Random.Range(0, roomCount);
 		}
-		goalRoomText.text = "Goal : " + RoomManager.manager.goalRoom;
 
-		doorPassed = 0;
 		RandomizeDoors();
+
+		goalRoomText.text = "Goal : " + RoomManager.manager.goalRoom;
+		UpdateInfo();
 	}
 
 	public void ReinitDoors () {
 		RandomizeDoors();
 		doorPassed ++;
-		UpdateDoorPassed();
-		playerScript.Reset();
-		playerScript.printInfo();
+		UpdateInfo();
+		player.Reset();
 	}
 
 	public void RandomizeDoors () {
@@ -137,15 +139,10 @@ public class RoomManager : MonoBehaviour {
 		currentRoom = nextRoom;
 		doorPassed ++;
 		Game.manager.PlayMusic(musics[currentRoom]);
-		UpdateCurrentRoom();
-		UpdateDoorPassed();
+		UpdateInfo();
 	}
 
 	public AudioClip GetCurrentMusic () {
 		return musics[currentRoom];
-	}
-
-	public void UpdateCurrentRoom () {
-		currentRoomText.text = "Current : " + currentRoom;
 	}
 }

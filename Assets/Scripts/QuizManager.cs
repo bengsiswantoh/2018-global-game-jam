@@ -66,6 +66,10 @@ public class QuizManager : MonoBehaviour {
 			Destroy(gameObject);
 	}
 
+	public bool IsActive() {
+		return quizMenu.activeSelf;
+	}
+
 	public void AnswerButton () {
 		if (quizAnswer.text.ToLower() == answers[quizIndex]) {
 			quizResult.text = "Benar";
@@ -82,19 +86,21 @@ public class QuizManager : MonoBehaviour {
 		quizIndex = Random.Range(0, questions.Length);
 		quizQuestion.text = questions[quizIndex];
 		quizMenu.SetActive(true);
+		// Game.manager.StopGame(true);
 		Game.manager.PlayMusic(quizMusic);
 	}
 
 	IEnumerator HideQuiz() {
 		yield return new WaitForSeconds(3);
 		if (quizAnswer.text.ToLower() == answers[quizIndex]) {
-				RoomManager.manager.playerScript.Transmitte(RoomManager.manager.nextRoom);
+				RoomManager.manager.player.Transmitte(RoomManager.manager.nextRoom);
 		} else {
 			RoomManager.manager.ReinitDoors();
 		}
 		quizAnswer.text = "";
 		quizResult.text = "";
 		quizMenu.SetActive(false);
+		// Game.manager.StopGame(false);
 		Game.manager.PlayMusic(RoomManager.manager.GetCurrentMusic());
 	}
 }
