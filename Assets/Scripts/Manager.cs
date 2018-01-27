@@ -1,11 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Manager : MonoBehaviour {
 
 	[SerializeField] GameObject pauseMenu;
-	[SerializeField] GameObject winText;
+	[SerializeField] GameObject winMenu;
+	[SerializeField] GameObject quizMenu;
+	[SerializeField] Text quizQuestion;
+	[SerializeField] InputField quizAnswer;
+	[SerializeField] Text quizResult;
 
 	public static GameObject player;
 	public static int currentRoom;
@@ -14,7 +19,55 @@ public class Manager : MonoBehaviour {
 
 	static Manager manager;
 	static Player playerScript;
+	static GameObject quizMenuStatic;
+	static Text quizQuestionStatic;
 	static int [][] doors;
+	static int nextRoom;
+	static int quizIndex;
+	static string [] questions = new string [] {
+		"Kita bisa melihat wajah kita di '_ _ _ A'",
+		"Nama kota di provinsi Jawa Barat 'B _ _ _ _ _'",
+		"Orang mati biasanya naik '_ _ _ _ _ _ A'",
+		"Bisa SMS kalau ada '_ _ L _ _'",
+		"Dunia tak selebar daun '_ E _ _ _'",
+		"Lari jarak jauh 'M _ _ _ _ _ O _'",
+		"Olahraga membuat badan 'S _ _ _ _'",
+		"Valentiona Rossi berasal dari 'I _ _ _ _ _",
+		"Yang membatalkan puasa '_ _ _ _ N'",
+		"Kata untuk menyapa orang di medan 'H _ _ _ _'",
+		"Koran disebut surat '_ _ _ A _'",
+		"Nama binatang yamh diulang '_ _ R _ _ _'",
+		"Pasang bendera di 'T _ _ _ _'",
+		"Puasa dibulan '_ _ _ _ _ H _ N'",
+		"Terompet jika ditiup akan 'B _ _ _ _'",
+		"Monumen di Jakarta itu '_ _ _ A _'",
+		"Kebanyakan orang tidur waktu '_ _ _ _ M'",
+		"Dari Bandung ke Surabaya kita menggunakan '_ E _ _ _ A'",
+		"Dapat bergerak sendiri tanpa disuruh '_ O _ _ _'",
+		"Jika anda dikelilingi oleh 300 Harimau, apa yang akan anda lakukan '_ A _ _ A _'"
+	};
+	static string [] answers = new string [] {
+		"sima",
+		"banyak",
+		"apasaja",
+		"hplah",
+		"betul",
+		"malesloh",
+		"salah",
+		"ibunya",
+		"adzan",
+		"hallo",
+		"salah",
+		"jarang",
+		"tarik",
+		"kejauhan",
+		"basah",
+		"keras",
+		"merem",
+		"celana",
+		"roboh",
+		"santai"
+	};
 
 	int roomCount;
 	int portalCount;
@@ -31,6 +84,10 @@ public class Manager : MonoBehaviour {
 		player = GameObject.FindWithTag("Player");
 		if (player != null)
 			playerScript = player.GetComponent<Player>();
+
+		// set static
+		quizMenuStatic = quizMenu;
+		quizQuestionStatic = quizQuestion;
 
 		// make doorlist to generate better random
 		roomCount = 10;
@@ -89,6 +146,28 @@ public class Manager : MonoBehaviour {
 		Time.timeScale = paused ? 0 : 1;
 	}
 
+	void WinGame () {
+		StopGame(true);
+		if (winMenu != null)
+			winMenu.SetActive(paused);
+	}
+
+	IEnumerator HideQuiz() {
+		yield return new WaitForSeconds(3);
+		if (quizAnswer.text.ToLower() == answers[quizIndex]) {
+			playerScript.Transmitte(nextRoom);
+		} else {
+			RandomizeDoors();
+			doorPassed ++;
+			playerScript.UpdateDoorPassed();
+			playerScript.Reset();
+			playerScript.printInfo();
+		}
+		quizAnswer.text = "";
+		quizResult.text = "";
+		quizMenu.SetActive(false);
+	}
+
 	public void TogglePauseMenu () {
 		StopGame(!paused);
 		if (pauseMenu != null)
@@ -101,10 +180,13 @@ public class Manager : MonoBehaviour {
 		InitGame();
 	}
 
-	void WinGame () {
-		StopGame(true);
-		if (winText != null)
-			winText.SetActive(paused);
+	public void AnswerButton () {
+		if (quizAnswer.text.ToLower() == answers[quizIndex]) {
+			quizResult.text = "benar";
+		} else {
+			quizResult.text = "salah jawaban yang benar adalah \n" + answers[quizIndex].ToUpper();
+		}
+		StartCoroutine("HideQuiz");
 	}
 
 	public static Player GetPlayer () {
@@ -113,5 +195,12 @@ public class Manager : MonoBehaviour {
 
 	public static int GetDoor (string door) {
 		return doors[currentRoom][int.Parse(door)];
+	}
+
+	public static void ShowQuiz (int _nextRoom) {
+		nextRoom = _nextRoom;
+		quizIndex = Random.Range(0, questions.Length);
+		quizQuestionStatic.text = questions[quizIndex];
+		quizMenuStatic.SetActive(true);
 	}
 }
