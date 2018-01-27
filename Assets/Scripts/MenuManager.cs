@@ -7,6 +7,9 @@ public class MenuManager : MonoBehaviour {
 
 	[SerializeField] GameObject pauseMenu;
 	[SerializeField] GameObject winMenu;
+	[SerializeField] GameObject gameGroup;
+	[SerializeField] GameObject menuGroup;
+	[SerializeField] AudioClip menuMusic;
 
 	public static MenuManager manager;
 
@@ -39,7 +42,7 @@ public class MenuManager : MonoBehaviour {
 	}
 
 	public void ResetButton () {
-		ShowPauseMenu(false);
+		ShowWinMenu(false);
 		RoomManager.manager.InitGame();
 		RoomManager.manager.playerScript.Reset();
 	}
@@ -50,6 +53,10 @@ public class MenuManager : MonoBehaviour {
 	}
 
 	public void MenuButton () {
-
+		ShowWinMenu(false);
+		gameGroup.SetActive(false);
+		menuGroup.SetActive(false);
+		menuGroup.SetActive(true);
+		Game.manager.PlayMusic(menuMusic);
 	}
 }

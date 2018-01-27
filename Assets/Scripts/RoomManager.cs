@@ -1,10 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RoomManager : MonoBehaviour {
 
 	[SerializeField] AudioClip [] musics;
+	[SerializeField] Text doorPassedText;
+	[SerializeField] Text currentRoomText;
+	[SerializeField] Text goalRoomText;
+	[SerializeField] Text timerText;
 
 	public static RoomManager manager;
 	[HideInInspector] public int currentRoom;
@@ -18,6 +23,7 @@ public class RoomManager : MonoBehaviour {
 	int portalCount;
 	List<int> doorList;
 	int [][] doors;
+	float timePassed;
 
 	void Awake () {
 		if (manager == null)
@@ -49,6 +55,23 @@ public class RoomManager : MonoBehaviour {
 		if (IsWin()) {
 			WinGame();
 		}
+
+		UpdateTimer();
+	}
+
+	void UpdateDoorPassed () {
+		doorPassedText.text = "Portal yang dilewati : " + doorPassed;
+	}
+
+	void UpdateTimer () {
+		if (currentRoom != goalRoom) {
+			timePassed += Time.deltaTime;
+
+			string minutes = Mathf.Floor(timePassed / 60).ToString("00");
+ 			string seconds = (timePassed % 60).ToString("00");
+
+			timerText.text = "Waktu : " + minutes + ":" + seconds;
+		}
 	}
 
 	void WinGame () {
@@ -56,6 +79,10 @@ public class RoomManager : MonoBehaviour {
 	}
 
 	public void InitGame () {
+		timePassed = 0;
+		UpdateDoorPassed();
+		UpdateCurrentRoom();
+
 		Game.manager.StopGame(false);
 
 		// random starting room
@@ -70,15 +97,16 @@ public class RoomManager : MonoBehaviour {
 		while (goalRoom == currentRoom) {
 			goalRoom = Random.Range(0, roomCount);
 		}
+		goalRoomText.text = "Goal : " + RoomManager.manager.goalRoom;
 
 		doorPassed = 0;
 		RandomizeDoors();
 	}
 
-	public void ReinitGame () {
+	public void ReinitDoors () {
 		RandomizeDoors();
 		doorPassed ++;
-		playerScript.UpdateDoorPassed();
+		UpdateDoorPassed();
 		playerScript.Reset();
 		playerScript.printInfo();
 	}
@@ -109,9 +137,15 @@ public class RoomManager : MonoBehaviour {
 		currentRoom = nextRoom;
 		doorPassed ++;
 		Game.manager.PlayMusic(musics[currentRoom]);
+		UpdateCurrentRoom();
+		UpdateDoorPassed();
 	}
 
 	public AudioClip GetCurrentMusic () {
 		return musics[currentRoom];
+	}
+
+	public void UpdateCurrentRoom () {
+		currentRoomText.text = "Current : " + currentRoom;
 	}
 }

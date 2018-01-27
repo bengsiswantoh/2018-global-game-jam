@@ -334,6 +334,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 508641840}
   winMenu: {fileID: 600127751}
+  gameGroup: {fileID: 1777500811}
+  gameUI: {fileID: 800853569}
+  menuGroup: {fileID: 1118269019}
+  menuMusic: {fileID: 8300000, guid: 86445d6791bf4de42b303043494ab4d5, type: 3}
 --- !u!4 &183929248
 Transform:
   m_ObjectHideFlags: 0
@@ -341,11 +345,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 183929246}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -303, y: -135.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1777500812}
-  m_RootOrder: 4
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &224132715
 GameObject:
@@ -736,10 +740,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  doorPassed: {fileID: 1770835659}
-  currentRoom: {fileID: 1119710088}
-  goalRoom: {fileID: 763836162}
-  timer: {fileID: 1022098106}
 --- !u!61 &341838829
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1258,7 +1258,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1777500812}
-  m_RootOrder: 5
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &724090026
 GameObject:
@@ -1491,7 +1491,7 @@ GameObject:
   - component: {fileID: 800853571}
   - component: {fileID: 800853570}
   m_Layer: 5
-  m_Name: UICanvas
+  m_Name: GameUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1570,8 +1570,8 @@ RectTransform:
   - {fileID: 1022098105}
   - {fileID: 508641841}
   - {fileID: 724090027}
-  m_Father: {fileID: 1777500812}
-  m_RootOrder: 2
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1605,7 +1605,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1777500812}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &989746762
 MonoBehaviour:
@@ -1628,10 +1628,15 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 2ed86fedbc576fb44b53fb6d27ccc50a, type: 3}
   - {fileID: 8300000, guid: 91900cecb34366c44aecdd1dfc403a18, type: 3}
   - {fileID: 8300000, guid: d97dbce7824eb634ebfac71fbb435551, type: 3}
+  doorPassedText: {fileID: 1770835659}
+  currentRoomText: {fileID: 1119710088}
+  goalRoomText: {fileID: 763836162}
+  timerText: {fileID: 1022098106}
   currentRoom: 0
   goalRoom: 0
   playerScript: {fileID: 0}
   doorPassed: 0
+  nextRoom: 0
 --- !u!1 &1022098104
 GameObject:
   m_ObjectHideFlags: 0
@@ -1855,7 +1860,7 @@ Transform:
   m_Children:
   - {fileID: 724182389}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1119710086
 GameObject:
@@ -2272,7 +2277,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1545513876
 GameObject:
@@ -2523,12 +2528,10 @@ Transform:
   m_Children:
   - {fileID: 341838831}
   - {fileID: 311855413}
-  - {fileID: 800853573}
   - {fileID: 989746761}
-  - {fileID: 183929248}
   - {fileID: 712616810}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1781548380
 GameObject:

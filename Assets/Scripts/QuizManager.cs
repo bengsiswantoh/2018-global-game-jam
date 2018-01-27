@@ -68,10 +68,10 @@ public class QuizManager : MonoBehaviour {
 
 	public void AnswerButton () {
 		if (quizAnswer.text.ToLower() == answers[quizIndex]) {
-			quizResult.text = "benar";
+			quizResult.text = "Benar";
 		} else {
-			// quizResult.text = "salah jawaban yang benar adalah \n" + answers[quizIndex].ToUpper();
-			quizResult.text = "salah";
+			// quizResult.text = "Salah jawaban yang benar adalah \n" + answers[quizIndex].ToUpper();
+			quizResult.text = "Salah";
 			quizResult.text += "\n Portal akan berubah";
 		}
 		StartCoroutine("HideQuiz");
@@ -90,7 +90,7 @@ public class QuizManager : MonoBehaviour {
 		if (quizAnswer.text.ToLower() == answers[quizIndex]) {
 				RoomManager.manager.playerScript.Transmitte(RoomManager.manager.nextRoom);
 		} else {
-			RoomManager.manager.ReinitGame();
+			RoomManager.manager.ReinitDoors();
 		}
 		quizAnswer.text = "";
 		quizResult.text = "";
