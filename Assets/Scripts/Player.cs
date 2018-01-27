@@ -42,11 +42,11 @@ public class Player : MonoBehaviour {
 
 	void OnTriggerEnter2D (Collider2D other) {
 		if (other.tag == "Portal") {
-			int nextRoom = Manager.GetDoor(other.name);
+			int nextRoom = Manager.manager.GetDoor(other.name);
 			// nextRoom = Manager.goalRoom;
 
 			if (nextRoom == Manager.goalRoom) {
-				Manager.ShowQuiz(nextRoom);
+				Manager.manager.ShowQuiz(nextRoom);
 			} else
 				Transmitte(nextRoom);
 		}
@@ -83,7 +83,7 @@ public class Player : MonoBehaviour {
 
 	public void printInfo() {
 		for (int i = 0; i < 3; i ++) {
-			int temp = Manager.GetDoor(i.ToString());
+			int temp = Manager.manager.GetDoor(i.ToString());
 			print("door " + i + " : " + temp);
 		}
 	}

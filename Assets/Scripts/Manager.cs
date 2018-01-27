@@ -11,20 +11,19 @@ public class Manager : MonoBehaviour {
 	[SerializeField] Text quizQuestion;
 	[SerializeField] InputField quizAnswer;
 	[SerializeField] Text quizResult;
+	[SerializeField] AudioClip [] musics;
 
-	public static GameObject player;
+	public static Manager manager;
 	public static int currentRoom;
 	public static int goalRoom;
 	public static int doorPassed;
 
-	static Manager manager;
-	static Player playerScript;
-	static GameObject quizMenuStatic;
-	static Text quizQuestionStatic;
-	static int [][] doors;
-	static int nextRoom;
-	static int quizIndex;
-	static string [] questions = new string [] {
+	GameObject player;
+	Player playerScript;
+	int [][] doors;
+	int nextRoom;
+	int quizIndex;
+	string [] questions = new string [] {
 		"Kita bisa melihat wajah kita di '_ _ _ A'",
 		"Nama kota di provinsi Jawa Barat 'B _ _ _ _ _'",
 		"Orang mati biasanya naik '_ _ _ _ _ _ A'",
@@ -46,7 +45,7 @@ public class Manager : MonoBehaviour {
 		"Dapat bergerak sendiri tanpa disuruh '_ O _ _ _'",
 		"Jika anda dikelilingi oleh 300 Harimau, apa yang akan anda lakukan '_ A _ _ A _'"
 	};
-	static string [] answers = new string [] {
+	string [] answers = new string [] {
 		"sima",
 		"banyak",
 		"apasaja",
@@ -73,6 +72,7 @@ public class Manager : MonoBehaviour {
 	int portalCount;
 	List<int> doorList;
 	bool paused;
+	AudioSource stingSource;
 
 	void Awake () {
 		if (manager == null)
@@ -84,10 +84,6 @@ public class Manager : MonoBehaviour {
 		player = GameObject.FindWithTag("Player");
 		if (player != null)
 			playerScript = player.GetComponent<Player>();
-
-		// set static
-		quizMenuStatic = quizMenu;
-		quizQuestionStatic = quizQuestion;
 
 		// make doorlist to generate better random
 		roomCount = 10;
@@ -130,6 +126,12 @@ public class Manager : MonoBehaviour {
 
 		// random starting room
 		currentRoom = Random.Range(0, roomCount);
+
+		// play bgm
+		if (Game.musicOn) {
+			// stingSource.clip = musics[currentRoom];
+			// stingSource.Play();
+		}
 
 		// random goal room
 		goalRoom = currentRoom;
@@ -189,18 +191,18 @@ public class Manager : MonoBehaviour {
 		StartCoroutine("HideQuiz");
 	}
 
-	public static Player GetPlayer () {
+	public void ShowQuiz (int _nextRoom) {
+		nextRoom = _nextRoom;
+		quizIndex = Random.Range(0, questions.Length);
+		quizQuestion.text = questions[quizIndex];
+		quizMenu.SetActive(true);
+	}
+
+	public Player GetPlayer () {
 		return playerScript;
 	}
 
-	public static int GetDoor (string door) {
+	public int GetDoor (string door) {
 		return doors[currentRoom][int.Parse(door)];
-	}
-
-	public static void ShowQuiz (int _nextRoom) {
-		nextRoom = _nextRoom;
-		quizIndex = Random.Range(0, questions.Length);
-		quizQuestionStatic.text = questions[quizIndex];
-		quizMenuStatic.SetActive(true);
 	}
 }
