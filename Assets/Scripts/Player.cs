@@ -19,7 +19,7 @@ public class Player : MonoBehaviour {
 		startingPos = goal = transform.position;
 		UpdateDoorPassed();
 		UpdateCurrentRoom();
-		goalRoom.text = "Goal : " + Manager.goalRoom;
+		goalRoom.text = "Goal : " + RoomManager.manager.goalRoom;
 		printInfo();
 	}
 
@@ -30,7 +30,7 @@ public class Player : MonoBehaviour {
 		}
 
 		// Update time
-		if (Manager.currentRoom != Manager.goalRoom) {
+		if (RoomManager.manager.currentRoom != RoomManager.manager.goalRoom) {
 			timePassed += Time.deltaTime;
 
 			string minutes = Mathf.Floor(timePassed / 60).ToString("00");
@@ -42,18 +42,14 @@ public class Player : MonoBehaviour {
 
 	void OnTriggerEnter2D (Collider2D other) {
 		if (other.tag == "Portal") {
-			int nextRoom = Manager.manager.GetDoor(other.name);
-			// nextRoom = Manager.goalRoom;
+			int nextRoom = RoomManager.manager.GetDoor(other.name);
+			nextRoom = RoomManager.manager.goalRoom;
 
-			if (nextRoom == Manager.goalRoom) {
-				Manager.manager.ShowQuiz(nextRoom);
+			if (nextRoom == RoomManager.manager.goalRoom) {
+				QuizManager.manager.ShowQuiz(nextRoom);
 			} else
 				Transmitte(nextRoom);
 		}
-	}
-
-	void UpdateCurrentRoom () {
-		currentRoom.text = "Current : " + Manager.currentRoom;
 	}
 
 	public void Move (Vector3 _goal) {
@@ -66,24 +62,28 @@ public class Player : MonoBehaviour {
 
 	public void Reset () {
 		transform.position = goal = startingPos;
+		UpdateCurrentRoom();
 	}
 
 	public void Transmitte (int nextRoom) {
-		Manager.currentRoom = nextRoom;
-		Manager.doorPassed ++;
+		RoomManager.manager.ChangeRoom(nextRoom);
 		UpdateDoorPassed();
 		UpdateCurrentRoom();
 		Reset();
 		printInfo();
 	}
 
+	public void UpdateCurrentRoom () {
+		currentRoom.text = "Current : " + RoomManager.manager.currentRoom;
+	}
+
 	public void UpdateDoorPassed () {
-		doorPassed.text = "Portal yang dilewati : " + Manager.doorPassed;
+		doorPassed.text = "Portal yang dilewati : " + RoomManager.manager.doorPassed;
 	}
 
 	public void printInfo() {
 		for (int i = 0; i < 3; i ++) {
-			int temp = Manager.manager.GetDoor(i.ToString());
+			int temp = RoomManager.manager.GetDoor(i.ToString());
 			print("door " + i + " : " + temp);
 		}
 	}

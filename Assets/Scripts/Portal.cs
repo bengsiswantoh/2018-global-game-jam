@@ -5,10 +5,10 @@ using UnityEngine;
 public class Portal : MonoBehaviour {
 
 	void OnMouseDown () {
-		Player player = Manager.manager.GetPlayer();
+		Player player = RoomManager.manager.playerScript;
 		if (player != null) {
-				if (!player.IsMoving())
-					player.Move(transform.position);
+			if (!player.IsMoving())
+				player.Move(transform.position);
 		}
 	}
 }
