@@ -23,7 +23,7 @@ public class Player : MonoBehaviour {
 	void OnTriggerEnter2D (Collider2D other) {
 		if (other.tag == "Portal") {
 			int nextRoom = RoomManager.manager.GetDoor(other.name);
-			nextRoom = RoomManager.manager.goalRoom;
+			// nextRoom = RoomManager.manager.goalRoom;
 
 			if (nextRoom == RoomManager.manager.goalRoom) {
 				QuizManager.manager.ShowQuiz(nextRoom);

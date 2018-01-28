@@ -9,6 +9,7 @@ public class Game : MonoBehaviour {
 
 	public bool audioOn;
 	public bool musicOn;
+	public bool pausedWithTime;
 	public bool paused;
 
 	AudioSource musicSource;
@@ -21,6 +22,8 @@ public class Game : MonoBehaviour {
 
 		audioOn = true;
 		musicOn = true;
+		pausedWithTime = false;
+		paused = false;
 
 		musicSource = GetComponent<AudioSource>();
 	}
@@ -36,8 +39,12 @@ public class Game : MonoBehaviour {
 		}
 	}
 
-	public void StopGame (bool stop) {
-		paused = stop;
-		Time.timeScale = paused ? 0 : 1;
+	public void pauseGameWithTime (bool stop) {
+		pausedWithTime = stop;
+		Time.timeScale = pausedWithTime ? 0 : 1;
+	}
+
+	public bool IsPaused () {
+		return paused || pausedWithTime;
 	}
 }

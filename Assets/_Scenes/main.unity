@@ -333,7 +333,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 508641840}
-  winMenu: {fileID: 572804757}
+  winText: {fileID: 572804757}
   gameGroup: {fileID: 1777500811}
   menuGroup: {fileID: 1118269019}
   menuMusic: {fileID: 8300000, guid: 86445d6791bf4de42b303043494ab4d5, type: 3}
@@ -923,6 +923,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioOn: 0
   musicOn: 0
+  pausedWithTime: 0
   paused: 0
 --- !u!4 &512988343
 Transform:
@@ -1050,7 +1051,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -80}
-  m_SizeDelta: {x: 800, y: 400}
+  m_SizeDelta: {x: 1200, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &572804759
 MonoBehaviour:
@@ -1071,7 +1072,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 4a7bbe2a52846e7409f2710459f525ce, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f4d07a79572add44cafa36d9582fd193, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1450,7 +1451,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &763836161
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1848,8 +1849,8 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: d18fe116ddb97764488f615c3d39d37d, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1907,7 +1908,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1119710087
 RectTransform:
   m_ObjectHideFlags: 0

@@ -6,7 +6,7 @@ public class Portal : MonoBehaviour {
 
 	void OnMouseDown () {
 		Player player = RoomManager.manager.player;
-		if (player != null) {
+		if (player != null && !Game.manager.IsPaused()) {
 			if (!player.IsMoving())
 				player.Move(transform.position);
 		}

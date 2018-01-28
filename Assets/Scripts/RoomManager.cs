@@ -47,10 +47,6 @@ public class RoomManager : MonoBehaviour {
 		}
 	}
 
-	void Start () {
-		InitGame();
-	}
-
 	void Update () {
 		if (IsWin()) {
 			WinGame();
@@ -81,7 +77,7 @@ public class RoomManager : MonoBehaviour {
 	}
 
 	void WinGame () {
-		MenuManager.manager.ShowWinMenu(true);
+		MenuManager.manager.ShowWinText(true);
 	}
 
 	public void InitGame () {
@@ -89,7 +85,7 @@ public class RoomManager : MonoBehaviour {
 		doorPassed = 0;
 		currentRoom = 0;
 
-		MenuManager.manager.ShowWinMenu(false);
+		MenuManager.manager.ShowWinText(false);
 
 		// play bgm
 		Game.manager.PlayMusic(musics[currentRoom]);

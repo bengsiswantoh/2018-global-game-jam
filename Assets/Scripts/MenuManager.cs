@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class MenuManager : MonoBehaviour {
 
 	[SerializeField] GameObject pauseMenu;
-	[SerializeField] GameObject winMenu;
+	[SerializeField] GameObject winText;
 	[SerializeField] GameObject gameGroup;
 	[SerializeField] GameObject menuGroup;
 	[SerializeField] AudioClip menuMusic;
@@ -26,30 +26,30 @@ public class MenuManager : MonoBehaviour {
 	}
 
 	void Update () {
-		if (Input.GetButtonDown("Cancel") && !RoomManager.manager.IsWin() && !QuizManager.manager.IsActive())
-			ShowPauseMenu(!Game.manager.paused);
+		if (Input.GetButtonDown("Cancel") && !RoomManager.manager.IsWin() && !Game.manager.paused)
+			ShowPauseMenu(!Game.manager.IsPaused());
 	}
 
-	public void ShowWinMenu (bool show) {
+	public void ShowWinText (bool show) {
 		ShowPauseMenu(show);
-		if (winMenu != null)
-			winMenu.SetActive(Game.manager.paused);
+		if (winText != null)
+			winText.SetActive(Game.manager.pausedWithTime);
 	}
 
 	public void ShowPauseMenu (bool show) {
-		Game.manager.StopGame(show);
+		Game.manager.pauseGameWithTime(show);
 		if (pauseMenu != null)
-			pauseMenu.SetActive(Game.manager.paused);
+			pauseMenu.SetActive(Game.manager.pausedWithTime);
 	}
 
 	public void PlayButton () {
-		ShowPauseMenu(!Game.manager.paused);
+		ShowPauseMenu(!Game.manager.pausedWithTime);
 		if (RoomManager.manager.IsWin())
 			ResetButton();
 	}
 
 	public void ResetButton () {
-		ShowWinMenu(false);
+		ShowWinText(false);
 		RoomManager.manager.InitGame();
 	}
 
@@ -59,7 +59,7 @@ public class MenuManager : MonoBehaviour {
 	}
 
 	public void MenuButton () {
-		ShowWinMenu(false);
+		ShowWinText(false);
 		gameGroup.SetActive(false);
 		menuGroup.SetActive(true);
 		Game.manager.PlayMusic(menuMusic);
