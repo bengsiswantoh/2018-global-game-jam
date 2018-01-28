@@ -20,7 +20,6 @@ public class Game : MonoBehaviour {
 		else if (manager != this)
 			Destroy(gameObject);
 
-		audioOn = true;
 		musicOn = true;
 		pausedWithTime = false;
 		paused = false;

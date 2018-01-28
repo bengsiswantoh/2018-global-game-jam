@@ -42,3 +42,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Goal
+    uniqueID: 899987515
+    locked: 0
+  - name: Menu
+    uniqueID: 1999860329
+    locked: 0
+  - name: Splash
+    uniqueID: 4050091385
+    locked: 0

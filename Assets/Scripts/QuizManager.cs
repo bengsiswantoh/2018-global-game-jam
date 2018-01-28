@@ -80,6 +80,7 @@ public class QuizManager : MonoBehaviour {
 	public void ShowQuiz (int _nextRoom) {
 		quizAnswer.text = "";
 		quizResult.text = "";
+		// Random question
 		quizIndex = Random.Range(0, questions.Length);
 		quizQuestion.text = questions[quizIndex];
 		quizMenu.SetActive(true);

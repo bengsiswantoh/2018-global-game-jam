@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Play : MonoBehaviour {
+public class MenuGoal : MonoBehaviour {
 
 	void OnMouseDown () {
 		MenuManager.manager.Play();

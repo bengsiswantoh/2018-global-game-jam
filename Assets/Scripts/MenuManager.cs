@@ -8,6 +8,7 @@ public class MenuManager : MonoBehaviour {
 	[SerializeField] GameObject pauseMenu;
 	[SerializeField] GameObject winText;
 	[SerializeField] GameObject gameGroup;
+	[SerializeField] GameObject goalGroup;
 	[SerializeField] GameObject menuGroup;
 	[SerializeField] AudioClip menuMusic;
 
@@ -21,13 +22,20 @@ public class MenuManager : MonoBehaviour {
 	}
 
 	void Start () {
-		gameGroup.SetActive(false);
+		SetGroupFalse();
+		menuGroup.SetActive(true);
 		Game.manager.PlayMusic(menuMusic);
 	}
 
 	void Update () {
 		if (Input.GetButtonDown("Cancel") && !RoomManager.manager.IsWin() && !Game.manager.paused)
 			ShowPauseMenu(!Game.manager.IsPaused());
+	}
+
+	void SetGroupFalse () {
+		gameGroup.SetActive(false);
+		menuGroup.SetActive(false);
+		goalGroup.SetActive(false);
 	}
 
 	public void ShowWinText (bool show) {
@@ -60,14 +68,19 @@ public class MenuManager : MonoBehaviour {
 
 	public void MenuButton () {
 		ShowWinText(false);
-		gameGroup.SetActive(false);
+		SetGroupFalse();
 		menuGroup.SetActive(true);
 		Game.manager.PlayMusic(menuMusic);
 	}
 
+	public void GoToGoal () {
+		SetGroupFalse();
+		goalGroup.SetActive(true);
+	}
+
 	public void Play () {
+		SetGroupFalse();
 		RoomManager.manager.InitGame();
-		menuGroup.SetActive(false);
 		gameGroup.SetActive(true);
 	}
 }

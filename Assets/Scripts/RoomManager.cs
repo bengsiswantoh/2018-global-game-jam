@@ -5,7 +5,9 @@ using UnityEngine.UI;
 
 public class RoomManager : MonoBehaviour {
 
+	[SerializeField] Sprite [] images;
 	[SerializeField] AudioClip [] musics;
+	[SerializeField] SpriteRenderer background;
 	[SerializeField] Text doorPassedText;
 	[SerializeField] Text currentRoomText;
 	[SerializeField] Text goalRoomText;
@@ -47,11 +49,11 @@ public class RoomManager : MonoBehaviour {
 		}
 	}
 
-	void Update () {
-		if (IsWin()) {
-			WinGame();
-		}
+	void Start () {
+		// InitGame();
+	}
 
+	void Update () {
 		UpdateTimer();
 	}
 
@@ -76,19 +78,12 @@ public class RoomManager : MonoBehaviour {
 		}
 	}
 
-	void WinGame () {
-		MenuManager.manager.ShowWinText(true);
-	}
-
 	public void InitGame () {
 		timePassed = 0;
 		doorPassed = 0;
 		currentRoom = 0;
 
 		MenuManager.manager.ShowWinText(false);
-
-		// play bgm
-		Game.manager.PlayMusic(musics[currentRoom]);
 
 		// random goal room
 		goalRoom = currentRoom;
@@ -99,6 +94,10 @@ public class RoomManager : MonoBehaviour {
 		RandomizeDoors();
 
 		goalRoomText.text = "Goal : " + RoomManager.manager.goalRoom;
+
+		// play bgm
+		Game.manager.PlayMusic(musics[currentRoom]);
+		background.sprite = images[currentRoom];
 		UpdateInfo();
 	}
 
@@ -134,8 +133,12 @@ public class RoomManager : MonoBehaviour {
 	public void ChangeRoom (int nextRoom) {
 		currentRoom = nextRoom;
 		doorPassed ++;
+
 		Game.manager.PlayMusic(musics[currentRoom]);
+		background.sprite = images[currentRoom];
 		UpdateInfo();
+		if (IsWin())
+			MenuManager.manager.ShowWinText(true);
 	}
 
 	public AudioClip GetCurrentMusic () {
